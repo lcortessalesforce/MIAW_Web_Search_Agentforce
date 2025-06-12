@@ -185,19 +185,19 @@ function handleSearch() {
         //Show the chat modal
         const chatModal = document.getElementById('embeddedMessagingContainer');
         chatModal.classList.add('show');
-/**
+	    
         //Setting up the prechat form
         embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
             "_firstName": {
-                "value": "Lauren",
+                "value": "Leonardo",
                 "isEditableByEndUser": false
             },
             "_lastName": {
-                "value": "Bailey",
+                "value": "Cortes",
                 "isEditableByEndUser": false
             },
             "_email": {
-                "value": "rshekhar@salesforce.com",
+                "value": "lcortes@salesforce.com",
                 "isEditableByEndUser": false
             },
             "_subject": {
@@ -205,6 +205,7 @@ function handleSearch() {
                 "isEditableByEndUser": true
             }
         });
+/**
         embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
             "Prechat_Language": "English"
         });
@@ -225,6 +226,12 @@ window.addEventListener("onEmbeddedMessagingConversationParticipantChanged", (ev
             embeddedservice_bootstrap.utilAPI.sendTextMessage(query);//pass the initial query automatically to ASA
         }, 1500);
     }
+});
+
+window.addEventListener("onEmbeddedMessagingConversationClosed",(event) => {
+  const chatModal = document.getElementById('embeddedMessagingContainer');
+        chatModal.classList.remove('show');
+	document.getElementById('queryInput').value='';
 });
 </script>
 <script type='text/javascript' src='https://storm-545c0a32a5b777.my.site.com/ESWMIAWWebSearchAgentf1749053876102/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
