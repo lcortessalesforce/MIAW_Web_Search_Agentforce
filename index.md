@@ -233,6 +233,21 @@ window.addEventListener("onEmbeddedMessagingConversationClosed",(event) => {
         chatModal.classList.remove('show');
 	document.getElementById('queryInput').value='';
 });
+
+window.addEventListener("onEmbeddedMessagingWindowClosed",(event) => {
+  const chatModal = document.getElementById('embeddedMessagingContainer');
+        chatModal.classList.remove('show');
+	document.getElementById('queryInput').value='';
+});
+
+window.addEventListener("onEmbeddedMessagingWindowMinimized",(event) => {
+  const chatModal = document.getElementById('embeddedMessagingContainer');
+        chatModal.classList.remove('show');
+	document.getElementById('queryInput').value='';
+});
+	
+
+	
 </script>
 <script type='text/javascript' src='https://storm-545c0a32a5b777.my.site.com/ESWMIAWWebSearchAgentf1749053876102/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
