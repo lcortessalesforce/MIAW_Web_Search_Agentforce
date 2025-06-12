@@ -162,6 +162,7 @@
 					scrt2URL: 'https://storm-545c0a32a5b777.my.salesforce-scrt.com'
 				}
 			);
+			embeddedservice_bootstrap.utilAPI.launchChat();
 		} catch (err) {
 			console.error('Error loading Embedded Messaging: ', err);
 		}
