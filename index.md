@@ -164,11 +164,68 @@ h1 {
 					scrt2URL: 'https://storm-545c0a32a5b777.my.salesforce-scrt.com'
 				}
 			);
-			embeddedservice_bootstrap.utilAPI.launchChat();
+			//embeddedservice_bootstrap.utilAPI.launchChat();
 		} catch (err) {
 			console.error('Error loading Embedded Messaging: ', err);
 		}
 	};
+</script>
+<script type='text/javascript'>
+
+window.addEventListener("onEmbeddedMessagingReady", () => {
+    embeddedservice_bootstrap.settings.targetElement = document.body.querySelector("#embeddedMessagingContainer");
+});
+
+// Handle search button click
+var query;
+
+function handleSearch() {
+    query = document.getElementById('queryInput').value;
+    if(query.trim()) {
+        //Show the chat modal
+        const chatModal = document.getElementById('embeddedMessagingContainer');
+        chatModal.classList.add('show');
+/**
+        //Setting up the prechat form
+        embeddedservice_bootstrap.prechatAPI.setVisiblePrechatFields({
+            "_firstName": {
+                "value": "Lauren",
+                "isEditableByEndUser": false
+            },
+            "_lastName": {
+                "value": "Bailey",
+                "isEditableByEndUser": false
+            },
+            "_email": {
+                "value": "rshekhar@salesforce.com",
+                "isEditableByEndUser": false
+            },
+            "_subject": {
+                "value": query,
+                "isEditableByEndUser": true
+            }
+        });
+        embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
+            "Prechat_Language": "English"
+        });
+**/
+        embeddedservice_bootstrap.utilAPI.launchChat();//launch the prechat or chat window automatically
+    } else {
+        alert('Please enter a search query!');
+    }
+}
+
+window.addEventListener("onEmbeddedMessagingConversationParticipantChanged", (event) => {
+    const participantChangedEntry = JSON.parse(event.detail.conversationEntry.entryPayload).entries[0];
+    console.log("participantChangedEntry:" + JSON.stringify(participantChangedEntry));
+
+    if(participantChangedEntry.operation === "add" && participantChangedEntry.participant.role === "Chatbot") {
+        // Delay the execution by 2 seconds
+        setTimeout(() => {
+            embeddedservice_bootstrap.utilAPI.sendTextMessage(query);//pass the initial query automatically to ASA
+        }, 1500);
+    }
+});
 </script>
 <script type='text/javascript' src='https://storm-545c0a32a5b777.my.site.com/ESWMIAWWebSearchAgentf1749053876102/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
